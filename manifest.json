@@ -21,7 +21,12 @@
         "type": "string",
         "title": "Difficulty",
         "description": "Question difficulty. 'any' mixes all three.",
-        "enum": ["any", "easy", "medium", "hard"],
+        "enum": [
+          "any",
+          "easy",
+          "medium",
+          "hard"
+        ],
         "default": "any"
       },
       "category": {
@@ -161,6 +166,14 @@
         "AUSTRALIA?",
         "{66} B CANBERRA"
       ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "docs/board-display.png",
+      "alt": "Trivia displayed on a Vestaboard",
+      "caption": "Multiple-choice trivia from the Open Trivia Database: a question one refresh, the answer the next",
+      "primary": true
     }
   ],
   "demo": {

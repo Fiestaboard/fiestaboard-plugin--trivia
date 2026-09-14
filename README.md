@@ -8,6 +8,8 @@ Multiple-choice trivia from the [Open Trivia Database](https://opentdb.com/). Sh
 
 The Trivia plugin fetches one multiple-choice question from OpenTDB and runs a two-phase cycle driven by the refresh interval:
 
+![Trivia Display](./docs/board-display.png)
+
 1. **Question phase** – the question and choices A–D are shown; `answer` / `answer_letter` are empty.
 2. **Answer phase** (next refresh) – the same question and choices, with the correct answer revealed. No HTTP call is made.
 3. The refresh after that fetches a fresh question.
