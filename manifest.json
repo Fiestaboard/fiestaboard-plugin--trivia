@@ -1,0 +1,227 @@
+{
+  "id": "trivia",
+  "name": "Trivia",
+  "version": "1.0.0",
+  "description": "Multiple-choice trivia from the Open Trivia Database: a question one refresh, the answer the next",
+  "author": "FiestaBoard Team",
+  "repository": "https://github.com/Fiestaboard/fiestaboard-plugin--trivia",
+  "documentation": "README.md",
+  "icon": "brain",
+  "category": "entertainment",
+  "min_refresh_seconds": 30,
+  "settings_schema": {
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "title": "Enable Trivia",
+        "default": false
+      },
+      "difficulty": {
+        "type": "string",
+        "title": "Difficulty",
+        "description": "Question difficulty. 'any' mixes all three.",
+        "enum": ["any", "easy", "medium", "hard"],
+        "default": "any"
+      },
+      "category": {
+        "type": "integer",
+        "title": "Category ID",
+        "description": "OpenTDB category id (e.g. 9 = General Knowledge, 22 = Geography). 0 = any category. See docs/SETUP.md for the full list.",
+        "default": 0,
+        "minimum": 0
+      },
+      "refresh_seconds": {
+        "type": "integer",
+        "title": "Refresh Interval (seconds)",
+        "description": "How often the board advances: question -> answer -> new question. Each step is one refresh.",
+        "default": 120,
+        "minimum": 30,
+        "maximum": 3600
+      }
+    }
+  },
+  "env_vars": [
+    {
+      "name": "TRIVIA_ENABLED",
+      "required": false,
+      "description": "Enable trivia feature",
+      "default": "false"
+    }
+  ],
+  "variables": {
+    "groups": {
+      "question": {
+        "label": "Question"
+      },
+      "answer": {
+        "label": "Answer"
+      },
+      "meta": {
+        "label": "Details"
+      }
+    },
+    "simple": {
+      "question": {
+        "description": "The trivia question text",
+        "type": "string",
+        "max_length": 132,
+        "group": "question",
+        "example": "What is the capital of Australia?"
+      },
+      "choice_a": {
+        "description": "Choice A",
+        "type": "string",
+        "max_length": 20,
+        "group": "question",
+        "example": "Sydney"
+      },
+      "choice_b": {
+        "description": "Choice B",
+        "type": "string",
+        "max_length": 20,
+        "group": "question",
+        "example": "Canberra"
+      },
+      "choice_c": {
+        "description": "Choice C",
+        "type": "string",
+        "max_length": 20,
+        "group": "question",
+        "example": "Perth"
+      },
+      "choice_d": {
+        "description": "Choice D",
+        "type": "string",
+        "max_length": 20,
+        "group": "question",
+        "example": "Melbourne"
+      },
+      "answer": {
+        "description": "Correct answer text (empty while the question is still open)",
+        "type": "string",
+        "max_length": 20,
+        "group": "answer",
+        "example": "Canberra"
+      },
+      "answer_letter": {
+        "description": "Letter A-D of the correct choice (empty while the question is still open)",
+        "type": "string",
+        "max_length": 1,
+        "group": "answer",
+        "example": "B"
+      },
+      "phase": {
+        "description": "Current phase: 'question' or 'answer'",
+        "type": "string",
+        "max_length": 8,
+        "group": "answer",
+        "example": "answer"
+      },
+      "is_revealed": {
+        "description": "Whether the answer is currently revealed (true/false)",
+        "type": "boolean",
+        "group": "answer",
+        "example": "true"
+      },
+      "category": {
+        "description": "Question category name",
+        "type": "string",
+        "max_length": 22,
+        "group": "meta",
+        "example": "Geography"
+      },
+      "difficulty": {
+        "description": "Question difficulty: easy, medium or hard",
+        "type": "string",
+        "max_length": 6,
+        "group": "meta",
+        "example": "easy"
+      }
+    }
+  },
+  "fiestaboard_version": ">=2.10.0",
+  "teaser": "{66}TRIVIA TIME",
+  "previews": [
+    {
+      "device_type": "flagship",
+      "rows": [
+        "WHAT IS THE CAPITAL",
+        "OF AUSTRALIA?",
+        "A SYDNEY   B CANBERRA",
+        "C PERTH    D MELBOURNE",
+        "",
+        "{66}ANSWER: B CANBERRA"
+      ]
+    },
+    {
+      "device_type": "note",
+      "rows": [
+        "CAPITAL OF",
+        "AUSTRALIA?",
+        "{66} B CANBERRA"
+      ]
+    }
+  ],
+  "demo": {
+    "flagship": {
+      "name": "Trivia Demo",
+      "template": [
+        "{{trivia.question}}",
+        "",
+        "",
+        "A {{trivia.choice_a}}  B {{trivia.choice_b}}",
+        "C {{trivia.choice_c}}  D {{trivia.choice_d}}",
+        "{{trivia.answer_letter}} {{trivia.answer}}"
+      ],
+      "line_metadata": [
+        {
+          "alignment": "left",
+          "wrap": true
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        },
+        {
+          "alignment": "center",
+          "wrap": false
+        }
+      ]
+    },
+    "note": {
+      "name": "Trivia (Note)",
+      "template": [
+        "{{trivia.question}}",
+        "",
+        "{{trivia.answer_letter}} {{trivia.answer}}"
+      ],
+      "line_metadata": [
+        {
+          "alignment": "left",
+          "wrap": true
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        },
+        {
+          "alignment": "left",
+          "wrap": false
+        }
+      ]
+    }
+  }
+}
