@@ -1,7 +1,7 @@
 {
   "id": "trivia",
   "name": "Trivia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Multiple-choice trivia from the Open Trivia Database: a question one refresh, the answer the next",
   "author": "FiestaBoard Team",
   "repository": "https://github.com/Fiestaboard/fiestaboard-plugin--trivia",
@@ -77,35 +77,35 @@
       "choice_a": {
         "description": "Choice A",
         "type": "string",
-        "max_length": 20,
+        "max_length": 15,
         "group": "question",
         "example": "Sydney"
       },
       "choice_b": {
         "description": "Choice B",
         "type": "string",
-        "max_length": 20,
+        "max_length": 15,
         "group": "question",
         "example": "Canberra"
       },
       "choice_c": {
         "description": "Choice C",
         "type": "string",
-        "max_length": 20,
+        "max_length": 15,
         "group": "question",
         "example": "Perth"
       },
       "choice_d": {
         "description": "Choice D",
         "type": "string",
-        "max_length": 20,
+        "max_length": 15,
         "group": "question",
         "example": "Melbourne"
       },
       "answer": {
         "description": "Correct answer text (empty while the question is still open)",
         "type": "string",
-        "max_length": 20,
+        "max_length": 15,
         "group": "answer",
         "example": "Canberra"
       },
@@ -132,7 +132,7 @@
       "category": {
         "description": "Question category name",
         "type": "string",
-        "max_length": 22,
+        "max_length": 15,
         "group": "meta",
         "example": "Geography"
       },
@@ -165,6 +165,20 @@
         "CAPITAL OF",
         "AUSTRALIA?",
         "{66} B CANBERRA"
+      ]
+    },
+    {
+      "label": "Note Array (2x2)",
+      "device_type": "note_array",
+      "notes_wide": 2,
+      "notes_tall": 2,
+      "rows": [
+        "WHAT IS THE CAPITAL OF",
+        "AUSTRALIA?",
+        "A SYDNEY        B CANBERRA",
+        "C PERTH         D MELBOURNE",
+        "",
+        "{66}ANSWER: B CANBERRA"
       ]
     }
   ],
