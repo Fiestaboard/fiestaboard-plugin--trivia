@@ -1,7 +1,7 @@
 {
   "id": "trivia",
   "name": "Trivia",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Multiple-choice trivia from the Open Trivia Database: a question one refresh, the answer the next",
   "author": "FiestaBoard Team",
   "repository": "https://github.com/Fiestaboard/fiestaboard-plugin--trivia",
