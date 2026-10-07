@@ -166,19 +166,28 @@ class TriviaPlugin(PluginBase):
     def _state_key(self) -> str:
         """Per-geometry key for the question/reveal state machine.
 
-        Mirrors the shape of ``PluginBase._cache_key``: fixed-size boards key
-        on their device type, note arrays additionally key on their actual
-        dimensions (all arrays share device_type "note_array" but vary in
-        size), and an unbound board (legacy callers, unit tests) falls back
-        to one default key so behavior outside a board-scoped render is
-        unchanged.
+        Mirrors ``PluginBase._cache_key``. Flagship and Note have fixed sizes,
+        so their device_type is a sufficient key. Every other family varies in
+        size under one device_type -- note arrays, and LED/TV boards, which
+        are all "panel" -- so the dimensions are folded in: otherwise a 16x10
+        Pixoo and a 22x9 TV panel share one entry, and a board whose grid
+        changes at runtime (a larger text size) is served output laid out for
+        its old size. Two boards of one size can still draw differently
+        (split-flap vs LED), so the display's key is appended when core
+        provides one; ``getattr`` keeps this working on cores whose
+        BoardContext has no ``display``. An unbound board (legacy callers,
+        unit tests) falls back to one default key.
         """
         board = self.board
         if board is None:
             return "_default"
-        if board.device_type == "note_array":
-            return f"note_array:{board.cols}x{board.rows}"
-        return board.device_type
+        if board.device_type in ("flagship", "note"):
+            key = board.device_type
+        else:
+            key = f"{board.device_type}:{board.cols}x{board.rows}"
+        display = getattr(board, "display", None)
+        display_key = getattr(display, "key", None)
+        return f"{key}|{display_key}" if display_key else key
 
     def fetch_data(self) -> PluginResult:
         """Advance this board's question/answer state machine and return its data."""
